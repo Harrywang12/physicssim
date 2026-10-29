@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thermal balance · T7 Water Lab</title>
+<style>
+:root{--ink:#163d3a;--muted:#546a64;--paper:#f6f6ed;--line:#ced6c9;--green:#cce28a;--red:#c3573d;--blue:#356d9d}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.5 'Avenir Next','Trebuchet MS',sans-serif}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--ink);border-radius:7px;padding:10px 17px;background:transparent;color:var(--ink);font-weight:600}button:hover{background:#e4e9d8}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #b06b16;outline-offset:3px}button:disabled{opacity:.45;cursor:not-allowed}.primary{background:var(--ink);color:#fff}.primary:hover{background:#295952}.accent{background:var(--green)}.wrap{max-width:1440px;margin:auto;padding:26px 36px 45px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ink);padding-bottom:23px;gap:20px}.eyebrow{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}h1{font:normal clamp(34px,4vw,54px)/1.1 Georgia,serif;margin:7px 0 10px;letter-spacing:-1.5px}h2{font:normal 26px/1.2 Georgia,serif;margin:0 0 16px}h3{font-size:18px;margin:0 0 12px}p{margin:6px 0 12px}.muted,.note{color:var(--muted)}.note{font-size:14px}.badge{border:1px solid var(--line);padding:8px 14px;border-radius:30px;white-space:nowrap;font-size:14px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 18px}.section-tag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}.workspace{display:grid;grid-template-columns:310px minmax(0,1fr);gap:22px}.panel{border:1px solid var(--line);border-radius:12px;background:#ffffff80;padding:23px}.inputs{background:#e9eedf}.sample-input+.sample-input{border-top:1px solid var(--line);padding-top:20px;margin-top:22px}.sample-heading{display:flex;align-items:center;gap:10px}.dot{width:11px;height:11px;border-radius:50%;display:inline-block}.control{margin:15px 0}.control label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}.number{width:86px;padding:5px;border:1px solid #aebbad;border-radius:5px;background:var(--paper);text-align:right;color:var(--ink)}input[type=range]{width:100%;accent-color:var(--ink);margin:14px 0 0}.limits{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.error{color:#a12c25;font-size:14px;margin-top:5px}.error:empty{display:none}[aria-invalid=true]{border:2px solid #a12c25}.main{min-width:0}.stage{background:#edf0e5;position:relative;min-height:290px;display:flex;align-items:center;justify-content:center;gap:35px;border-radius:8px;padding:25px 15px}.vessel-group{text-align:center;min-width:130px}.vessel{height:146px;width:132px;border:3px solid #68847a;border-top:0;border-radius:0 0 22px 22px;position:relative;margin:12px auto;overflow:hidden;background:#ffffff55}.vessel:after{content:'';position:absolute;top:14px;bottom:18px;right:9px;width:14px;background:repeating-linear-gradient(to bottom,#ffffffa6 0 2px,transparent 2px 19px)}.water{position:absolute;bottom:0;left:0;right:0;transition:background .1s;background:var(--blue);border-top:3px solid #ffffff88}.vessel-value{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums}.transfer{text-align:center;max-width:210px;font-size:13px}.arrow{font:48px/1 Georgia,serif;margin-bottom:12px}.stage-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}.mix-btn{min-width:150px}.meter{height:5px;background:#dae1d4;margin:16px 0 9px;border-radius:5px;overflow:hidden}.meter span{display:block;width:0;height:100%;background:var(--ink)}.readouts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.temperature{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px;gap:14px}.big{font:normal 48px/1.1 Georgia,serif;white-space:nowrap}.heat{border:1px solid var(--line);border-radius:7px;padding:16px}.heat strong{font-size:23px;display:block}.heat .delta{border-top:1px solid var(--line);margin-top:12px;padding-top:10px;font-weight:600}.balance{grid-column:1/-1;background:#e8eedc;padding:10px 14px;border-radius:5px;font-size:16px}.lower{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}.prediction-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#prediction{width:100px;padding:8px;border:1px solid var(--line);border-radius:5px}fieldset{border:0;padding:0;margin:18px 0}legend{font-size:15px;margin-bottom:10px}.choices{display:flex;gap:15px;font-size:16px;flex-wrap:wrap}#prediction-result{background:#e8eedc;padding:12px;border-radius:6px}#prediction-result:empty{display:none}.toggle{display:flex;align-items:flex-start;gap:10px;font-size:16px;margin-top:18px}.toggle input{margin-top:6px;accent-color:var(--ink)}.counterfactual{margin-top:14px;border-left:3px solid var(--red);padding-left:14px;font-size:16px}.graph-panel{margin-top:22px}svg{display:block;width:100%;height:auto;max-height:440px}svg text{font-family:'Trebuchet MS',sans-serif;fill:var(--ink);font-size:15px}.legend{display:flex;gap:22px;flex-wrap:wrap;font-size:14px}.legend span{display:flex;align-items:center;gap:8px}.line-key{width:25px;border-top:3px solid var(--ink)}.dashed{border-top:2px dashed #a46a40}.point-key{width:10px;height:10px;border-radius:50%;background:#8d9b79}.current-key{background:var(--red);border:3px solid #e6bba9;width:16px;height:16px}.table-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.buttons{display:flex;gap:9px;flex-wrap:wrap}.table-wrap{overflow:auto;margin-top:18px}table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}th,td{padding:12px 10px;text-align:right;border-bottom:1px solid var(--line)}th{font-weight:600;background:#e9eedf}th:first-child,td:first-child{text-align:left}.details{margin-top:22px}summary{cursor:pointer;font:normal 23px Georgia,serif}details p,details ol,details ul{font-size:16px}footer{font-size:13px;color:var(--muted);padding-top:24px;display:flex;justify-content:space-between;gap:20px}.invalid-overlay{padding:60px 20px;text-align:center}.hidden,[hidden]{display:none!important}@media(min-width:1200px){.readouts{grid-template-columns:1fr 1fr}.stage{min-height:300px}}@media(max-width:850px){.wrap{padding:20px}.workspace{grid-template-columns:1fr}.inputs-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.sample-input+.sample-input{border:0;border-left:1px solid var(--line);padding:0 0 0 24px;margin:0}.lower{grid-template-columns:1fr}.badge{display:none}}@media(max-width:520px){.wrap{padding:14px}.panel{padding:17px}.stage{gap:8px}.vessel{width:95px;height:120px}.vessel-group{min-width:95px}.transfer{max-width:100px;font-size:11px}.readouts{grid-template-columns:1fr}.temperature,.balance{grid-column:1}.inputs-grid{gap:15px}.sample-input+.sample-input{padding-left:15px}.number{width:72px}.big{font-size:38px}.stage-actions{align-items:flex-start}.topline{align-items:flex-start}header{padding-top:10px}}
+
+sub{font-size:.72em;vertical-align:sub;line-height:0}
+.fraction{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.3;margin:0 .25em}
+.fraction>span:first-child{border-bottom:1px solid currentColor;padding:0 .25em .12em}
+.fraction>span:last-child{padding:.12em .25em 0}
+.equation{display:inline-block;font-family:Georgia,serif;font-size:1.1em;margin:.4em 0}
+.heat strong{font-size:clamp(17px,1.7vw,23px);overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div><div class="eyebrow">AP Physics 2 / Thermodynamics / T7</div><h1>Thermal balance.</h1><p class="muted">Two samples. One equilibrium. Energy conserved.</p></div><span class="badge">Isolated system · ΔU = 0 J</span></header>
+<div class="topline"><span class="eyebrow">The water mixing lab</span><button id="reset">↺ Reset assigned case</button></div>
+<div class="workspace">
+<section class="panel inputs"><span class="section-tag">01 / Set your conditions</span><h2>Start with two samples.</h2><div class="inputs-grid" id="controls"></div><p class="note">Liquid water · 1–99 °C<br>Sample A may be warmer or cooler than B.</p></section>
+<div class="main">
+<section class="panel"><span class="section-tag">02 / Observe the exchange</span><div class="table-head"><h2>From difference to balance.</h2><span class="note" id="phase">Ready to mix</span></div>
+<div id="valid-display"><div class="stage"><div class="vessel-group" id="group-a"><strong>Sample A</strong><div class="vessel"><div class="water" id="water-a"></div></div><div class="vessel-value" id="temp-a"></div><span class="note" id="mass-a"></span></div><div class="transfer" id="transfer"><div class="arrow" id="arrow" aria-hidden="true">→</div><span id="arrow-label">Net energy transfer (not water moving)</span></div><div class="vessel-group" id="group-b"><strong>Sample B</strong><div class="vessel"><div class="water" id="water-b"></div></div><div class="vessel-value" id="temp-b"></div><span class="note" id="mass-b"></span></div><div class="vessel-group" id="combined" hidden><strong>Combined water · equilibrium</strong><div class="vessel"><div class="water" id="water-final"></div></div><div class="vessel-value" id="temp-final"></div><span class="note" id="mass-final"></span></div></div></div>
+<div class="invalid-overlay" id="invalid-display" hidden>Correct the marked inputs to calculate and mix.</div>
+<div class="stage-actions"><button class="primary mix-btn" id="mix">Mix water →</button><span class="note" id="progress-label">Progress: 0%</span></div><div class="meter"><span id="progress-bar"></span></div><p class="note">Animation shows progress toward equilibrium, not real mixing time.</p>
+<div class="readouts" id="readouts"></div></section>
+</div></div>
+<div class="lower">
+<section class="panel"><span class="section-tag">03 / Make a prediction</span><h2>Think before you mix.</h2><label for="prediction">My predicted equilibrium temperature</label><div class="prediction-row"><input id="prediction" type="number" min="1" max="99" step="any" placeholder="e.g. 44"><span>°C</span></div><div id="prediction-error" class="error" role="status"></div><fieldset><legend>I think T<sub>f</sub> will be … the arithmetic mean.</legend><div class="choices"><label><input type="radio" name="relation" value="above"> Above</label><label><input type="radio" name="relation" value="below"> Below</label><label><input type="radio" name="relation" value="equal"> Equal to</label></div></fieldset><p class="note">Predict, press Mix, then compare. Change any input to start another experiment.</p><div id="prediction-result" role="status"></div></section>
+<section class="panel"><span class="section-tag">04 / Challenge the shortcut</span><h2>Is the simple average enough?</h2><div id="comparison"></div><label class="toggle"><input id="average-toggle" type="checkbox"><span>What if the answer were the simple average?</span></label><div id="average-details" class="counterfactual" hidden></div></section>
+</div>
+<section class="panel graph-panel"><span class="section-tag">05 / Find the relationship</span><div class="table-head"><h2>Mass fraction → equilibrium temperature</h2><span class="note" id="fixed"></span></div><p class="note"><span class="equation" role="math" aria-label="Sample A mass fraction equals mass A divided by total mass">f<sub>A</sub> = <span class="fraction"><span>m<sub>A</sub></span><span>m<sub>A</sub> + m<sub>B</sub></span></span></span> (dimensionless). This is the hot-mass fraction when A is hotter; A can also be cooler.</p><svg id="graph" viewBox="0 0 1000 380" role="img" aria-labelledby="graph-title graph-desc"><title id="graph-title">Equilibrium temperature versus Sample A mass fraction</title><desc id="graph-desc">A straight theory line, the arithmetic mean, recorded matching runs, and the current case.</desc></svg><div class="legend"><span><i class="line-key"></i>Theory</span><span><i class="line-key dashed"></i>Arithmetic mean</span><span><i class="point-key"></i>Recorded run</span><span><i class="point-key current-key"></i>Current case</span></div><p class="note">Only recorded points with T<sub>A</sub> and T<sub>B</sub> matching the current temperatures are plotted. Masses vary; the two starting temperatures are held fixed.</p></section>
+<section class="panel graph-panel"><div class="table-head"><div><span class="section-tag">06 / Keep the evidence</span><h2>Your lab notebook</h2></div><div class="buttons"><button id="record" class="accent">+ Record this run</button><button id="investigation">Load my investigation</button><button id="export">Export CSV</button><button id="clear">Clear table</button></div></div><p class="note" id="table-note">0 recorded runs. Reset keeps your table; Clear table removes it. Load my investigation appends nine calculated runs.</p><div class="table-wrap"><table><thead><tr><th>Run #</th><th>m<sub>A</sub> (kg)</th><th>m<sub>B</sub> (kg)</th><th>T<sub>A</sub> (°C)</th><th>T<sub>B</sub> (°C)</th><th>f<sub>A</sub> (unitless)</th><th>T<sub>f</sub> (°C)</th><th>Q<sub>A</sub> (J)</th><th>Q<sub>B</sub> (J)</th><th>Residual (J)</th></tr></thead><tbody id="rows"><tr><td colspan="10">Record a case to begin your investigation.</td></tr></tbody></table></div><p class="note" id="record-status" role="status"></p></section>
+<details class="panel details" open><summary>How to use this lab</summary><p>This lab models two samples of liquid water reaching a shared equilibrium temperature in an insulated container.</p><ol><li>Set each mass and starting temperature using a slider or number box. A can be warmer or cooler than B.</li><li>Before mixing, predict the final temperature and whether it will be above, below, or equal to the simple average.</li><li>Press <b>Mix water</b>. The samples approach equilibrium over an illustrative two-second animation. Compare your prediction with the calculated result.</li><li>Press <b>Record this run</b> to save the current case, or <b>Load my investigation</b> for the nine-run 80/20 °C mass sweep. Change one mass at a time to investigate the graph.</li><li><b>Export CSV</b> saves the table. <b>Reset assigned case</b> restores 0.20 kg at 80 °C and 0.30 kg at 20 °C, clears predictions, and preserves the table. <b>Clear table</b> removes recorded data.</li></ol><p><b>Q &gt; 0:</b> the sample gains energy. <b>Q &lt; 0:</b> the sample loses energy. Equal and opposite Q values do not require equal temperature changes: ΔT = <span class="fraction"><span>Q</span><span>mc</span></span>.</p><p>The readouts show the calculated final changes before mixing. During animation they show transferred energy and temperature changes so far; T<sub>f</sub> stays the equilibrium target.</p></details>
+<details class="panel details" open><summary>System, assumptions & limitations</summary><ul><li>Isolated two-sample water system: total ΔU = 0 J exactly.</li><li>Liquid water near 1 atm; constant c = 4184 J/(kg·°C), equal for both samples.</li><li>Insulated container with negligible heat capacity. No evaporation, heat loss, or phase change.</li><li>Models the final equilibrium state only, not mixing time. Real evaporation and heat loss would make the measured final temperature lower than predicted.</li></ul><p><b>Model:</b> Q<sub>A</sub> = m<sub>A</sub> c (T<sub>f</sub> − T<sub>A</sub>); Q<sub>B</sub> = m<sub>B</sub> c (T<sub>f</sub> − T<sub>B</sub>); Q<sub>A</sub> + Q<sub>B</sub> = 0 J.<br>Therefore T<sub>f</sub> = <span class="fraction"><span>m<sub>A</sub> T<sub>A</sub> + m<sub>B</sub> T<sub>B</sub></span><span>m<sub>A</sub> + m<sub>B</sub></span></span> = T<sub>B</sub> + f<sub>A</sub>(T<sub>A</sub> − T<sub>B</sub>).</p><p class="note">The displayed residual is calculated from both Q equations. Floating-point residuals below 0.000001 J are displayed as 0.0 J.</p></details>
+<footer><span>T7 · Mixing hot and cold water</span><span>Built for curiosity. Runs entirely offline.</span></footer>
+</div>
+<script src="physics.js"></script>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+let runs = [], current = null, animation = null, mixed = false, progressValue = 0, predictionSnapshot = null;
+const keys = ['mA','tA','mB','tB'];
+const signed = (n, digits = 1) => (Math.abs(n) < Math.pow(10,-digits)/2 ? '0'.concat(digits ? '.'+'0'.repeat(digits) : '') : (n > 0 ? '+' : '−') + Math.abs(n).toFixed(digits));
+const residual = n => Math.abs(n) < 1e-6 ? '0.0' : signed(n, 6);
+const verb = n => Math.abs(n)<1e-9 ? 'no energy change' : n > 0 ? 'gains' : 'loses';
+const color = t => { const f=(t-1)/98; return `rgb(${Math.round(54+f*165)},${Math.round(126-f*41)},${Math.round(181-f*117)})`; };
+const relation = r => Math.abs(r.tf-r.mean)<1e-9 ? 'equal' : r.tf>r.mean ? 'above' : 'below';
+for (const sample of ['A','B']) {
+  const section=document.createElement('div');section.className='sample-input';
+  section.innerHTML=`<h3 class="sample-heading"><i class="dot" style="background:var(--${sample==='A'?'red':'blue'})"></i>Sample ${sample}</h3>`;
+  for (const type of ['m','t']) {
+    const key=type+sample, mass=type==='m', min=mass?'.01':'1', max=mass?'1':'99', step=mass?'.01':'1', unit=mass?'kg':'°C';
+    section.innerHTML+=`<div class="control"><label for="${key}">${mass?'Mass':'Temperature'} (${unit}) <input class="number" id="${key}" type="number" min="${min}" max="${max}" step="${step}" aria-describedby="${key}-error" value="${Physics.DEFAULTS[key]}"></label><input type="range" id="${key}-slider" min="${min}" max="${max}" step="${step}" aria-label="Sample ${sample} ${mass?'mass in kg':'temperature in degrees Celsius'}" value="${Physics.DEFAULTS[key]}"><div class="limits"><span>${mass?'0.01':'1'} ${unit}</span><span>${mass?'1.00':'99'} ${unit}</span></div><div class="error" id="${key}-error" role="status"></div></div>`;
+  }
+  $('controls').append(section);
+}
+function getInputs(){return Object.fromEntries(keys.map(k=>[k,$(k).value===''?NaN:Number($(k).value)]));}
+function stopAnimation(){if(animation!==null)cancelAnimationFrame(animation);animation=null;}
+function inputChanged(){
+  stopAnimation();mixed=false;progressValue=0;predictionSnapshot=null;$('prediction-result').textContent='';
+  const input=getInputs(), errors=Physics.validate(input);
+  for(const k of keys){$(k+'-error').textContent=errors[k]||'';$(k).setAttribute('aria-invalid',!!errors[k]);if(!errors[k])$(k+'-slider').value=input[k];}
+  const invalid=Object.keys(errors).length>0;current=invalid?null:Physics.calculate(input);
+  $('valid-display').hidden=!!invalid;$('invalid-display').hidden=!invalid;
+  $('mix').disabled=!!invalid;$('record').disabled=!!invalid;
+  $('phase').textContent=invalid?'Check inputs':'Ready to mix';$('mix').textContent='Mix water →';
+  $('progress-bar').style.width='0%';$('progress-label').textContent='Progress: 0%';
+  $('prediction').disabled=false;document.querySelectorAll('[name=relation]').forEach(e=>e.disabled=false);
+  render();
+}
+function heatCard(name,q,d){return `<div class="heat"><span>Sample ${name} · ${verb(q)}</span><strong>Q<sub>${name}</sub> = ${signed(q)} J</strong><span class="note">${signed(q/1000)} kJ</span><div class="delta">ΔT<sub>${name}</sub> = ${signed(d)} °C</div></div>`;}
+function renderReadouts(s){
+  if(!current){$('readouts').innerHTML='<p class="note">Results unavailable until all inputs are valid.</p>';return;}
+  const r=current, p=s===undefined?r:Physics.progress(r,s);
+  $('readouts').innerHTML=`<div class="temperature"><div><span class="section-tag">Calculated equilibrium</span><span>T<sub>f</sub> · mass-weighted mean</span></div><span class="big">${r.tf.toFixed(1)} °C</span></div><span class="note" style="grid-column:1/-1">${s===undefined?'Final energy and temperature changes':mixed?'Final energy and temperature changes':'Energy and temperature changes so far'}</span>${heatCard('A',p.qA,p.dA)}${heatCard('B',p.qB,p.dB)}<div class="balance">Q<sub>A</sub> + Q<sub>B</sub> = <b>${residual(p.residual)} J</b> · energy conserved</div>`;
+}
+function renderStage(s=0){
+  if(!current)return;
+  const r=current,p=Physics.progress(r,s);
+  $('group-a').hidden=mixed;$('group-b').hidden=mixed;$('combined').hidden=!mixed;
+  $('transfer').hidden=mixed;
+  for(const x of ['a','b']) {const name=x.toUpperCase(), t=p['t'+name];$('temp-'+x).textContent=t.toFixed(1)+' °C';$('mass-'+x).textContent=r['m'+name].toFixed(2)+' kg';$('water-'+x).style.background=color(t);$('water-'+x).style.height=(35+55*r['m'+name])+'%';}
+  $('arrow').hidden=r.tA===r.tB;$('arrow').textContent=r.tA>r.tB?'→':'←';
+  $('arrow-label').textContent=r.tA===r.tB?'No net energy transfer: temperatures already equal.':'Net energy transfer (not water moving)';
+  $('temp-final').textContent=r.tf.toFixed(1)+' °C';$('mass-final').textContent=(r.mA+r.mB).toFixed(2)+' kg total';$('water-final').style.background=color(r.tf);$('water-final').style.height='78%';
+  if(mixed&&r.tA===r.tB){$('transfer').hidden=false;}
+}
+function renderComparison(){
+  if(!current){$('comparison').textContent='Enter valid inputs to compare.';$('average-details').textContent='Enter valid inputs to calculate.';return;}
+  const r=current,rel=relation(r),a=Physics.simpleAverage(r);
+  $('comparison').innerHTML=`<p>Arithmetic mean: <b>${r.mean.toFixed(1)} °C</b><br>Calculated T<sub>f</sub>: <b>${r.tf.toFixed(1)} °C</b></p><p>T<sub>f</sub> is <b>${rel==='equal'?'equal to':rel}</b> the arithmetic mean${rel==='equal'?'.':', closer to the temperature of the larger sample.'}</p>`;
+  $('average-details').innerHTML=`<p>At ${a.temperature.toFixed(1)} °C:<br>Sample A ${verb(a.qA)}: <b>${signed(a.qA/1000)} kJ</b><br>Sample B ${verb(a.qB)}: <b>${signed(a.qB/1000)} kJ</b></p><p>Imbalance Q<sub>A</sub> + Q<sub>B</sub> = <b>${signed(a.residual/1000)} kJ</b> (magnitude ${(Math.abs(a.residual)/1000).toFixed(1)} kJ).</p><b>${Math.abs(a.residual)<1e-6?'Conserves energy for this case.':'This violates conservation of energy.'}</b>`;
+}
+function renderGraph(){
+  const svg=$('graph');let content='<title id="graph-title">Equilibrium temperature versus Sample A mass fraction</title><desc id="graph-desc">The theory line holds both initial temperatures fixed. Recorded matching cases are plotted with the current case.</desc>';
+  const x=f=>90+850*f,y=t=>305-2.7*t;
+  for(let t=0;t<=100;t+=20)content+=`<line x1="90" y1="${y(t)}" x2="940" y2="${y(t)}" stroke="#d5ddcf"/><text x="72" y="${y(t)+5}" text-anchor="end">${t}</text>`;
+  for(let f=0;f<=1.001;f+=.2)content+=`<text x="${x(f)}" y="332" text-anchor="middle">${f.toFixed(1)}</text>`;
+  content+='<path d="M90 35 V305 H940" stroke="#163d3a" fill="none"/><text x="515" y="369" text-anchor="middle">Sample A mass fraction, f<tspan baseline-shift="sub" font-size="11">A</tspan> (dimensionless)</text><text transform="translate(25 174) rotate(-90)" text-anchor="middle">T<tspan baseline-shift="sub" font-size="11">f</tspan> (°C)</text>';
+  if(current){const r=current;content+=`<line x1="90" y1="${y(r.mean)}" x2="940" y2="${y(r.mean)}" stroke="#a46a40" stroke-width="2" stroke-dasharray="7 6"/><line x1="90" y1="${y(r.tB)}" x2="940" y2="${y(r.tA)}" stroke="#163d3a" stroke-width="3"/>`;
+    runs.filter(p=>p.tA===r.tA&&p.tB===r.tB).forEach(p=>content+=`<circle cx="${x(p.fraction)}" cy="${y(p.tf)}" r="6" fill="#8d9b79" stroke="#fff" stroke-width="2"><title>Run ${p.run}: Sample A fraction ${p.fraction.toFixed(3)}, final temperature ${p.tf.toFixed(1)} °C</title></circle>`);
+    content+=`<circle cx="${x(r.fraction)}" cy="${y(r.tf)}" r="9" fill="#c3573d" stroke="#f6f6ed" stroke-width="3"><title>Current: Sample A fraction ${r.fraction.toFixed(3)}, final temperature ${r.tf.toFixed(1)} °C</title></circle><text x="${Math.min(x(r.fraction)+16,790)}" y="${y(r.tf)-16}">Current: ${r.tf.toFixed(1)} °C</text>`;
+    $('fixed').innerHTML=`Fixed: T<sub>A</sub> = ${r.tA} °C · T<sub>B</sub> = ${r.tB} °C`;
+  }else{$('fixed').innerHTML='Waiting for valid inputs';content+='<text x="515" y="170" text-anchor="middle">Correct inputs to draw the theory line.</text>';}
+  svg.innerHTML=content;
+}
+function render(){renderStage();renderReadouts();renderComparison();renderGraph();}
+function renderTable(){
+  $('rows').innerHTML=runs.length?runs.map(r=>`<tr><td>${r.run}</td><td>${r.mA.toFixed(2)}</td><td>${r.mB.toFixed(2)}</td><td>${r.tA}</td><td>${r.tB}</td><td>${r.fraction.toFixed(4)}</td><td>${r.tf.toFixed(1)}</td><td>${signed(r.qA)}</td><td>${signed(r.qB)}</td><td>${residual(r.residual)}</td></tr>`).join(''):'<tr><td colspan="10">Record a case to begin your investigation.</td></tr>';
+  $('table-note').textContent=`${runs.length} recorded run${runs.length===1?'':'s'}. Reset keeps your table; Clear table removes it. Load my investigation appends nine calculated runs.`;
+  $('export').disabled=!runs.length;$('clear').disabled=!runs.length;renderGraph();
+}
+function finishPrediction(){
+  if(!predictionSnapshot)return;
+  const p=predictionSnapshot,r=current,rel=relation(r);
+  const numeric=p.value===null?'No temperature prediction entered.':`Your prediction: ${p.value.toFixed(1)} °C. Calculated: ${r.tf.toFixed(1)} °C. Prediction − calculated: ${signed(p.value-r.tf)} °C (absolute difference: ${Math.abs(p.value-r.tf).toFixed(1)} °C).`;
+  $('prediction-result').innerHTML=numeric+' '+(p.relation?`You chose ${p.relation}; calculated T<sub>f</sub> is ${rel==='equal'?'equal to':rel} the mean. ${p.relation===rel?'Correct comparison.':'Try reasoning from the larger mass.'}`:'No above/below/equal prediction selected.');
+}
+keys.forEach(k=>{ $(k).addEventListener('input',inputChanged);$(k+'-slider').addEventListener('input',()=>{$(k).value=$(k+'-slider').value;inputChanged();}); });
+$('average-toggle').addEventListener('change',()=>{$('average-details').hidden=!$('average-toggle').checked;});
+$('mix').addEventListener('click',()=>{
+  if(!current)return;
+  const raw=$('prediction').value, n=Number(raw);
+  if(raw!==''&&(!Number.isFinite(n)||n<1||n>99)){$('prediction-error').textContent='Enter a predicted temperature from 1 to 99 °C, or leave it blank.';$('prediction').setAttribute('aria-invalid','true');return;}
+  $('prediction-error').textContent='';$('prediction').setAttribute('aria-invalid','false');
+  predictionSnapshot={value:raw===''?null:n,relation:document.querySelector('[name=relation]:checked')?.value||null};
+  stopAnimation();mixed=false;$('prediction-result').textContent='';$('mix').disabled=true;$('prediction').disabled=true;document.querySelectorAll('[name=relation]').forEach(e=>e.disabled=true);$('phase').textContent='Approaching equilibrium';
+  const start=performance.now();
+  function frame(now){progressValue=Math.min(1,(now-start)/2000);mixed=progressValue===1;renderStage(progressValue);renderReadouts(progressValue);$('progress-bar').style.width=(progressValue*100)+'%';$('progress-label').textContent='Progress: '+Math.round(progressValue*100)+'%';if(!mixed)animation=requestAnimationFrame(frame);else{animation=null;$('phase').textContent='Equilibrium reached';$('mix').disabled=false;$('mix').textContent='Mix again ↺';finishPrediction();}}
+  animation=requestAnimationFrame(frame);
+});
+$('record').addEventListener('click',()=>{if(!current)return;runs.push({...Physics.calculate(getInputs()),run:runs.length+1});renderTable();$('record-status').textContent=`Run ${runs.length} recorded.`;});
+$('clear').addEventListener('click',()=>{runs=[];renderTable();$('record-status').textContent='Table cleared.';});
+$('investigation').addEventListener('click',()=>{for(const k of keys)$(k).value=Physics.DEFAULTS[k];inputChanged();Physics.investigation().forEach(r=>runs.push({...r,run:runs.length+1}));renderTable();$('record-status').textContent='Nine investigation runs appended; displayed inputs show the assigned case.';});
+$('reset').addEventListener('click',()=>{for(const k of keys)$(k).value=Physics.DEFAULTS[k];$('prediction').value='';$('prediction-error').textContent='';$('prediction').setAttribute('aria-invalid','false');document.querySelectorAll('[name=relation]').forEach(e=>e.checked=false);$('average-toggle').checked=false;$('average-details').hidden=true;inputChanged();$('record-status').textContent='Assigned case restored. Recorded runs preserved.';});
+$('export').addEventListener('click',()=>{
+  const header='Run,m_A (kg),m_B (kg),T_A (deg C),T_B (deg C),f_A (dimensionless),T_f (deg C),Q_A (J),Q_B (J),Residual (J)';
+  const csv=[header,...runs.map(r=>[r.run,r.mA,r.mB,r.tA,r.tB,r.fraction,r.tf,r.qA,r.qB,Math.abs(r.residual)<1e-6?0:r.residual].join(','))].join('\r\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})),a=document.createElement('a');a.href=url;a.download='T7-water-mixing.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+inputChanged();renderTable();
+</script>
+</body>
+</html>

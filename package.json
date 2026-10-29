@@ -1,0 +1,13 @@
+{
+  "name": "t7-physics-water-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline AP Physics 2 thermodynamics simulation: mixing hot and cold water",
+  "scripts": {
+    "test": "node tests.js",
+    "build": "node tests.js && node build.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
