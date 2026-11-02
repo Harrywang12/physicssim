@@ -1,0 +1,222 @@
+[
+  {
+    "name": "User Guide opens",
+    "pass": true
+  },
+  {
+    "name": "Escape closes User Guide",
+    "pass": true
+  },
+  {
+    "name": "Guided answers initially masked",
+    "pass": true
+  },
+  {
+    "name": "Guided Mix blocked before prediction",
+    "pass": true
+  },
+  {
+    "name": "Typical case finishes at 44 °C",
+    "pass": true
+  },
+  {
+    "name": "Prediction difference after Mix",
+    "pass": true
+  },
+  {
+    "name": "Typical analysis energy values",
+    "pass": true
+  },
+  {
+    "name": "Typical misconception imbalance",
+    "pass": true
+  },
+  {
+    "name": "Typical completion screen",
+    "pass": true
+  },
+  {
+    "name": "Sweep appends nine records preserving one",
+    "pass": true
+  },
+  {
+    "name": "Mass analysis distinguishes mass fraction",
+    "pass": true
+  },
+  {
+    "name": "Mass completion",
+    "pass": true
+  },
+  {
+    "name": "Boundary arrow hidden",
+    "pass": true
+  },
+  {
+    "name": "Boundary message exact",
+    "pass": true
+  },
+  {
+    "name": "Boundary equilibrium 45",
+    "pass": true
+  },
+  {
+    "name": "Boundary completion",
+    "pass": true
+  },
+  {
+    "name": "Repeat returns to step one",
+    "pass": true
+  },
+  {
+    "name": "Hint displayed",
+    "pass": true
+  },
+  {
+    "name": "Deliberate reveal works",
+    "pass": true
+  },
+  {
+    "name": "Input change masks guide answers",
+    "pass": true
+  },
+  {
+    "name": "Incorrect conditions detected",
+    "pass": true
+  },
+  {
+    "name": "Reset preserves ten records",
+    "pass": true
+  },
+  {
+    "name": "Typed mass syncs slider",
+    "pass": true
+  },
+  {
+    "name": "Slider keyboard syncs number",
+    "pass": true
+  },
+  {
+    "name": "Reversed arrow points left",
+    "pass": true
+  },
+  {
+    "name": "Reversed graph filters old records",
+    "pass": true
+  },
+  {
+    "name": "Invalid mass disables Mix",
+    "pass": true
+  },
+  {
+    "name": "Invalid mass removes outputs",
+    "pass": true
+  },
+  {
+    "name": "Graph point selection shows conditions",
+    "pass": false
+  },
+  {
+    "name": "Graph point selection retest after fix",
+    "pass": true
+  },
+  {
+    "name": "Modal traps keyboard focus",
+    "pass": false
+  },
+  {
+    "name": "Modal focus trap retest",
+    "pass": true
+  },
+  {
+    "name": "Modal returns focus to opener",
+    "pass": true
+  },
+  {
+    "name": "Escape closes guided panel",
+    "pass": true
+  },
+  {
+    "name": "Mobile fits screen width",
+    "pass": true
+  },
+  {
+    "name": "Mobile drawer leaves simulation visible",
+    "pass": true
+  },
+  {
+    "name": "Manual mass trial preserves trend prediction",
+    "pass": true
+  },
+  {
+    "name": "Manual mass trial counts collected mass",
+    "pass": true
+  },
+  {
+    "name": "Changed controlled input invalidates prediction",
+    "pass": true
+  },
+  {
+    "name": "Changed control returns to prediction step",
+    "pass": true
+  },
+  {
+    "name": "mA slider updates number and recalculates",
+    "pass": true
+  },
+  {
+    "name": "mB slider updates number and recalculates",
+    "pass": true
+  },
+  {
+    "name": "tA slider updates number and recalculates",
+    "pass": true
+  },
+  {
+    "name": "tB slider updates number and recalculates",
+    "pass": true
+  },
+  {
+    "name": "No remote runtime assets",
+    "pass": true
+  },
+  {
+    "name": "CSV export dialog has nine computed rows",
+    "pass": true
+  },
+  {
+    "name": "CSV exported endpoints match sweep",
+    "pass": true
+  },
+  {
+    "name": "CSV exported heat balances",
+    "pass": true
+  },
+  {
+    "name": "CSV download handler requests download",
+    "pass": true
+  },
+  {
+    "name": "Explicit Clear table removes records",
+    "pass": true
+  },
+  {
+    "name": "Copied CSV matches export exactly",
+    "pass": true
+  },
+  {
+    "name": "Edited prediction must be resubmitted",
+    "pass": true
+  },
+  {
+    "name": "Back restores previous guide step",
+    "pass": true
+  },
+  {
+    "name": "Browser theory descends for cooler A",
+    "pass": true
+  },
+  {
+    "name": "Browser equal-temperature theory horizontal",
+    "pass": true
+  }
+]

@@ -65,7 +65,33 @@
   function investigation() {
     return INVESTIGATION_MASSES.map(mA => calculate({ mA, mB: 0.30, tA: 80, tB: 20 }));
   }
-  const api = { C, DEFAULTS, validate, calculate, simpleAverage, progress, investigation };
+  // Investigation helpers describe experimental controls, not additional physics.
+  function investigationSetup(id) {
+    if (id === 'typical') return { ...DEFAULTS };
+    if (id === 'mass') return { mA: 0.05, mB: 0.30, tA: 80, tB: 20 };
+    if (id === 'boundary') return { mA: 0.20, mB: 0.30, tA: 45, tB: 45 };
+    throw new RangeError('Unknown investigation.');
+  }
+  function checkInvestigation(id, input) {
+    const errors = validate(input);
+    if (Object.keys(errors).length) return { ok: false, message: 'Correct the marked inputs first.' };
+    const expected = investigationSetup(id);
+    const fixed = id === 'mass' ? ['mB', 'tA', 'tB'] : ['mA', 'mB', 'tA', 'tB'];
+    const wrong = fixed.filter(key => Math.abs(input[key] - expected[key]) > 1e-8);
+    return { ok: wrong.length === 0, message: wrong.length ? 'Starting conditions differ: check ' + wrong.map(key => ({mA:'Sample A mass',mB:'Sample B mass',tA:'Sample A temperature',tB:'Sample B temperature'})[key]).join(', ') + '.' : 'Parameters match. All four controls remain adjustable.' };
+  }
+  function energyDirection(input) {
+    calculate(input); // Apply the same validation as every other model entry point.
+    return input.tA === input.tB ? 'none' : input.tA > input.tB ? 'AtoB' : 'BtoA';
+  }
+  function matchingRuns(records, input) {
+    return records.filter(run => run.tA === input.tA && run.tB === input.tB);
+  }
+  function exportCSV(records) {
+    const header = 'Run,m_A (kg),m_B (kg),T_A (deg C),T_B (deg C),f_A (dimensionless),T_f (deg C),Q_A (J),Q_B (J),Residual (J)';
+    return [header, ...records.map(r => [r.run,r.mA,r.mB,r.tA,r.tB,r.fraction,r.tf,r.qA,r.qB,Math.abs(r.residual)<1e-6?0:r.residual].join(','))].join('\r\n');
+  }
+  const api = { C, DEFAULTS, validate, calculate, simpleAverage, progress, investigation, investigationSetup, checkInvestigation, energyDirection, matchingRuns, exportCSV };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Physics = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

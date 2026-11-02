@@ -92,5 +92,48 @@ test('L. Simple-average misconception check', 'Default at 50 °C: Q_A=-25104 J, 
   near(P.simpleAverage({mA:.2,tA:80,mB:.2,tB:20}).residual,0,.1);
   return `At ${r.temperature} °C: Q_A=${r.qA} J, Q_B=${r.qB} J, imbalance=${r.residual} J; equal-mass imbalance=0 J`;
 });
+test('M. Guided presets and controlled variables', 'Typical and boundary presets valid; mass investigation varies only mA; changed fixed inputs detected', () => {
+  for(const id of ['typical','mass','boundary']) {
+    const setup=P.investigationSetup(id);
+    if(!P.checkInvestigation(id,setup).ok)throw new Error('Invalid preset '+id);
+    P.calculate(setup);
+  }
+  if(!P.checkInvestigation('mass',{...P.investigationSetup('mass'),mA:.9}).ok)throw new Error('Mass variation rejected');
+  if(P.checkInvestigation('mass',{...P.investigationSetup('mass'),mB:.4}).ok)throw new Error('Changed control accepted');
+  if(P.checkInvestigation('typical',{...P.DEFAULTS,tA:79}).ok)throw new Error('Wrong typical condition accepted');
+  if(P.checkInvestigation('boundary',{...P.investigationSetup('boundary'),mA:0}).ok)throw new Error('Invalid mass accepted');
+  return '3 valid presets; free mA accepted; wrong fixed and invalid inputs rejected';
+});
+test('N. Direction and graph symmetry', 'A→B for 80/20, B→A for 20/80, no arrow at equal temperatures; ascending/descending/horizontal theory', () => {
+  for(const [tA,tB,direction] of [[80,20,'AtoB'],[20,80,'BtoA'],[45,45,'none']]) {
+    const input={...P.DEFAULTS,tA,tB};
+    if(P.energyDirection(input)!==direction)throw new Error('Wrong direction');
+    const left=P.calculate({...input,mA:.01,mB:1}),right=P.calculate({...input,mA:1,mB:.01});
+    if(Math.sign(right.tf-left.tf)!==Math.sign(tA-tB))throw new Error('Wrong slope');
+    for(const r of [left,right])near(r.tf,tB+r.fraction*(tA-tB),.01);
+  }
+  return 'Three directions and theory slopes verified with live calculations';
+});
+test('O. Recorded graph-point filtering', 'Plot only runs whose two initial temperatures match the current graph', () => {
+  const records=[P.calculate(P.DEFAULTS),P.calculate({...P.DEFAULTS,tA:20,tB:80}),P.calculate({...P.DEFAULTS,mA:.4})];
+  const visible=P.matchingRuns(records,P.DEFAULTS);
+  if(visible.length!==2||visible.some(r=>r.tA!==80||r.tB!==20))throw new Error('Wrong matching records');
+  return '2/3 records selected; reversed-temperature record excluded';
+});
+test('P. CSV export uses computed records', 'Header + nine rows, ten columns each, correct temperatures, signed heat, normalized residual', () => {
+  const records=P.investigation().map((r,i)=>({...r,run:i+1}));
+  const rows=P.exportCSV(records).split('\r\n').map(r=>r.split(','));
+  if(rows.length!==10||rows.some(r=>r.length!==10))throw new Error('Invalid CSV shape');
+  records.forEach((r,i)=>{near(Number(rows[i+1][6]),r.tf,.01);near(Number(rows[i+1][7]),r.qA,.1);near(Number(rows[i+1][8]),r.qB,.1);if(rows[i+1][9]!=='0')throw new Error('Residual not normalized');});
+  return '9 computed rows; 10 columns; temperatures and both signed heat values verified';
+});
+test('Q. Boundary extremes and strict validation', 'Valid minimum/maximum inputs conserve energy; blank/string/undefined rejected; invalid progress rejected', () => {
+  for(const input of [{mA:.01,mB:1,tA:1,tB:99},{mA:1,mB:.01,tA:99,tB:1}]) {
+    const r=P.calculate(input);near(r.residual,0,.1);if(r.tf<1||r.tf>99)throw new Error('Out of bounds');
+  }
+  for(const bad of ['',undefined,'0.20']){let rejected=false;try{P.calculate({...P.DEFAULTS,mA:bad});}catch(e){rejected=e instanceof RangeError;}if(!rejected)throw new Error('Accepted invalid mass');}
+  for(const bad of [-.1,1.1,NaN]){let rejected=false;try{P.progress(P.DEFAULTS,bad);}catch(e){rejected=e instanceof RangeError;}if(!rejected)throw new Error('Accepted invalid progress');}
+  return 'Valid extremes passed; 3 invalid masses and 3 invalid progress values rejected';
+});
 console.log(`\n${passed} passed, ${failed} failed.`);
 if (failed) process.exitCode = 1;

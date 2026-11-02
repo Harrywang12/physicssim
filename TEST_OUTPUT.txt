@@ -1,0 +1,53 @@
+PASS A. Assigned case
+  Expected: T_f=44.00 °C, Q_A=-30124.8 J, Q_B=30124.8 J, sum=0 J
+  Actual:   T_f=44.00 °C, Q_A=-30124.8 J, Q_B=30124.8 J, sum=0.00e+0 J
+PASS B. Equal masses
+  Expected: T_f=50.00 °C, Q_A=-25104.0 J, Q_B=25104.0 J, sum=0 J
+  Actual:   T_f=50.00 °C, Q_A=-25104.0 J, Q_B=25104.0 J, sum=0.00e+0 J
+PASS C. Equal temperatures
+  Expected: T_f=45.00 °C, Q_A=0.0 J, Q_B=0.0 J, sum=0 J
+  Actual:   T_f=45.00 °C, Q_A=0.0 J, Q_B=0.0 J, sum=0.00e+0 J
+PASS D. Swapped labels
+  Expected: T_f=44.00 °C, Q_A=30124.8 J, Q_B=-30124.8 J, sum=0 J
+  Actual:   T_f=44.00 °C, Q_A=30124.8 J, Q_B=-30124.8 J, sum=0.00e+0 J
+PASS E. Reversed temperatures
+  Expected: T_f=56.00 °C, Q_A=30124.8 J, Q_B=-30124.8 J, sum=0 J
+  Actual:   T_f=56.00 °C, Q_A=30124.8 J, Q_B=-30124.8 J, sum=0.00e+0 J
+PASS F. Supplied OpenStax §12.3 source check
+  Expected: T_f=30.00 °C, Q_A=8368.0 J, Q_B=-8368.0 J, sum=0 J
+  Actual:   T_f=30.00 °C, Q_A=8368.0 J, Q_B=-8368.0 J, sum=0.00e+0 J
+PASS G. Bounds across 1000 random valid inputs
+  Expected: 1000/1000 final temperatures between starting temperatures
+  Actual:   1000/1000 within bounds; maximum numerical excursion 1.42e-14 °C
+PASS H. Energy conservation across 1000 random valid inputs
+  Expected: |Q_A+Q_B| < 1e-6 J in 1000/1000 cases
+  Actual:   1000/1000 conserved; maximum |residual|=1.146e-10 J
+PASS I. Invalid inputs rejected
+  Expected: Reject zero/negative/too-large masses, temperatures outside 1–99 °C, nonfinite and off-step inputs
+  Actual:   14/14 invalid inputs rejected
+PASS J. Investigation sweep
+  Expected: 0.05→28.57, 0.10→35.00, 0.15→40.00, 0.20→44.00, 0.30→50.00, 0.40→54.29, 0.60→60.00, 0.75→62.86, 0.90→65.00 °C
+  Actual:   0.05→28.57, 0.10→35.00, 0.15→40.00, 0.20→44.00, 0.30→50.00, 0.40→54.29, 0.60→60.00, 0.75→62.86, 0.90→65.00 °C
+PASS K. Animation interpolation and exact energy balance
+  Expected: At s=0/0.25/0.5/0.75/1: linear temperatures, equal and opposite Q, residual exactly 0 J
+  Actual:   15/15 frames verified; residual exactly 0 J
+PASS L. Simple-average misconception check
+  Expected: Default at 50 °C: Q_A=-25104 J, Q_B=37656 J, imbalance=12552 J; equal masses conserve energy
+  Actual:   At 50 °C: Q_A=-25104.000000000004 J, Q_B=37656 J, imbalance=12551.999999999996 J; equal-mass imbalance=0 J
+PASS M. Guided presets and controlled variables
+  Expected: Typical and boundary presets valid; mass investigation varies only mA; changed fixed inputs detected
+  Actual:   3 valid presets; free mA accepted; wrong fixed and invalid inputs rejected
+PASS N. Direction and graph symmetry
+  Expected: A→B for 80/20, B→A for 20/80, no arrow at equal temperatures; ascending/descending/horizontal theory
+  Actual:   Three directions and theory slopes verified with live calculations
+PASS O. Recorded graph-point filtering
+  Expected: Plot only runs whose two initial temperatures match the current graph
+  Actual:   2/3 records selected; reversed-temperature record excluded
+PASS P. CSV export uses computed records
+  Expected: Header + nine rows, ten columns each, correct temperatures, signed heat, normalized residual
+  Actual:   9 computed rows; 10 columns; temperatures and both signed heat values verified
+PASS Q. Boundary extremes and strict validation
+  Expected: Valid minimum/maximum inputs conserve energy; blank/string/undefined rejected; invalid progress rejected
+  Actual:   Valid extremes passed; 3 invalid masses and 3 invalid progress values rejected
+
+17 passed, 0 failed.
