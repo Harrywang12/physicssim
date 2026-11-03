@@ -142,9 +142,32 @@ $('mix').addEventListener('click',()=>{
   $('prediction-error').textContent='';$('prediction').setAttribute('aria-invalid','false');
   predictionSnapshot={value:raw===''?null:n,relation:document.querySelector('[name=relation]:checked')?.value||null};
   stopAnimation();mixed=false;$('prediction-result').textContent='';$('mix').disabled=true;$('prediction').disabled=true;document.querySelectorAll('[name=relation]').forEach(e=>e.disabled=true);$('phase').textContent='Approaching equilibrium';
-  const start=performance.now();
-  function frame(now){progressValue=Math.min(1,(now-start)/2000);mixed=progressValue===1;renderStage(progressValue);renderReadouts(progressValue);$('progress-bar').style.width=(progressValue*100)+'%';$('progress-label').textContent='Progress: '+Math.round(progressValue*100)+'%';if(!mixed)animation=requestAnimationFrame(frame);else{animation=null;$('phase').textContent='Equilibrium reached';$('mix').disabled=false;$('mix').textContent='Mix again ↺';finishPrediction();onGuidedMixed();}}
-  animation=requestAnimationFrame(frame);
+  // Start on the first animation frame. A frame timestamp can be slightly
+  // earlier than performance.now() in the click handler; mixing those clocks
+  // used to produce negative progress and stop the loop with a RangeError.
+  let animationStart = null;
+  $('progress-bar').style.width = '0%';
+  $('progress-label').textContent = 'Progress: 0%';
+  function frame(now) {
+    if (animationStart === null) animationStart = now;
+    progressValue = Math.max(0, Math.min(1, (now - animationStart) / 2000));
+    mixed = progressValue === 1;
+    renderStage(progressValue);
+    renderReadouts(progressValue);
+    $('progress-bar').style.width = (progressValue * 100) + '%';
+    $('progress-label').textContent = 'Progress: ' + Math.round(progressValue * 100) + '%';
+    if (!mixed) {
+      animation = requestAnimationFrame(frame);
+    } else {
+      animation = null;
+      $('phase').textContent = 'Equilibrium reached';
+      $('mix').disabled = false;
+      $('mix').textContent = 'Mix again ↺';
+      finishPrediction();
+      onGuidedMixed();
+    }
+  }
+  animation = requestAnimationFrame(frame);
 });
 $('record').addEventListener('click',()=>{if(!current||answersHidden())return;runs.push({...Physics.calculate(getInputs()),run:runs.length+1});onGuidedRecorded(runs[runs.length-1]);renderTable();$('record-status').textContent=`Run ${runs.length} recorded.`;});
 $('clear').addEventListener('click',()=>{runs=[];if(guided.id==='mass'){guided.trials=[];guided.lastRun=null;}renderTable();renderGuided();$('record-status').textContent='Table cleared.';});

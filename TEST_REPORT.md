@@ -1,13 +1,15 @@
 # Verification report
 
-Date: 2026-11-01. This report distinguishes executed checks from unverified or
+Updated: 2026-11-02. This report distinguishes executed checks from unverified or
 human-only checks. No peer observations or testing outcomes have been fabricated.
 
 ## Executed calculation and build checks
 
-`node tests.js`: **17 passed, 0 failed**. Full expected/actual output is retained
+`node tests.js`: **18 passed, 0 failed**. Full expected/actual output is retained
 in `TEST_OUTPUT.txt`. `npm run build` also succeeded and produced the two-file
 static site in `dist/`; its output is retained in `BUILD_OUTPUT.txt`.
+
+Added regression R runs the actual UI animation loop under controlled frame timestamps, including a first frame earlier than the click clock, a backwards frame, a midpoint, a delayed completion, and replay. It passed for default, reversed, and equal temperatures.
 
 The original A–L tests remain. Required cases A–J include the assigned case,
 equal masses, equal temperatures, swapped labels, reversed temperatures, the
@@ -102,3 +104,17 @@ memory; export data before refreshing. The formal presentation, independent
 hand calculations, genuine peer feedback, reflection, and source citations are
 separate student work. No Vercel production deployment status is inferred from
 local testing.
+
+## 2026-11-02 animation regression investigation
+
+Reproduced the failure in the old loop: a 1000 ms click-time clock and a first
+frame timestamp of 999 ms yielded negative progress and `RangeError: Progress
+must be between 0 and 1.` The loop stopped before updating the progress bar.
+The new timer begins on the first frame and clamps progress to 0–1.
+
+Executed browser checks after the fix: default run reached 100% and 44.0 °C;
+reversed temperatures reached 100% and 56.0 °C; equal temperatures reached 100%
+and 45.0 °C; replay reached 100%. Editing mass during animation reset progress
+and the next Mix completed. The guided typical run completed and advanced to
+Step 4 analysis. No browser errors were reported during the first four runs.
+These are additional checks to the earlier 53 successful assertions above.

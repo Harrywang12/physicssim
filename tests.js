@@ -135,5 +135,43 @@ test('Q. Boundary extremes and strict validation', 'Valid minimum/maximum inputs
   for(const bad of [-.1,1.1,NaN]){let rejected=false;try{P.progress(P.DEFAULTS,bad);}catch(e){rejected=e instanceof RangeError;}if(!rejected)throw new Error('Accepted invalid progress');}
   return 'Valid extremes passed; 3 invalid masses and 3 invalid progress values rejected';
 });
+// Execute the actual UI frame loop with deterministic browser-frame timestamps.
+// Renderers still call the real physics functions, so invalid progress throws.
+test('R. Animation starts safely and reaches equilibrium', 'Earlier first-frame timestamp: 0% → 50% → 100%; balanced heat, one completion, replay starts at 0%', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const vm = require('node:vm');
+  const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+  const start = html.indexOf('  let animationStart = null;');
+  const end = html.indexOf("\n});\n$('record')", start);
+  if(start<0||end<0)throw new Error('Animation loop not found');
+  const loop = html.slice(start,end);
+  for (const input of [P.DEFAULTS,{mA:.2,mB:.3,tA:20,tB:80},{mA:.2,mB:.3,tA:45,tB:45}]) {
+    const nodes={},frames=[];let completion=0,guidedCompletion=0;
+    const context = {
+      performance:{now:()=>1000}, progressValue:0,mixed:false,animation:null,
+      $:id=>nodes[id]||(nodes[id]={style:{},disabled:true}),
+      requestAnimationFrame:callback=>{frames.push(callback);return frames.length;},
+      renderStage:s=>P.progress(input,s),
+      renderReadouts:s=>{const p=P.progress(input,s);if(p.residual!==0)throw new Error('Energy imbalance');},
+      finishPrediction:()=>completion++,onGuidedMixed:()=>guidedCompletion++
+    };
+    const sandbox=vm.createContext(context);
+    vm.runInContext(loop,sandbox);
+    frames.shift()(999); // A frame earlier than the click-time clock is valid.
+    near(context.progressValue,0,0);
+    frames.shift()(998); // A backwards timestamp must never produce negative s.
+    near(context.progressValue,0,0);
+    frames.shift()(1999); near(context.progressValue,.5,1e-12);
+    frames.shift()(5000); near(context.progressValue,1,0);
+    if(frames.length||completion!==1||guidedCompletion!==1||context.animation!==null||!context.mixed)throw new Error('Incorrect completion state');
+    if(nodes['progress-label'].textContent!=='Progress: 100%'||nodes.mix.disabled)throw new Error('UI did not finish');
+    // A new Mix uses a new timeline, even after a completed run.
+    vm.runInContext('{'+loop+'}',sandbox);
+    frames.shift()(8000);near(context.progressValue,0,0);
+    if(nodes['progress-label'].textContent!=='Progress: 0%')throw new Error('Replay did not reset');
+  }
+  return 'Default, reversed, and equal-temperature runs reach 100%; exact balance; replay resets to 0%';
+});
 console.log(`\n${passed} passed, ${failed} failed.`);
 if (failed) process.exitCode = 1;

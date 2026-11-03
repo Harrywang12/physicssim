@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-02
+
+- Fixed intermittent Mix stalls at 0%: the click-time clock could be ahead of the
+  first frame timestamp, making progress negative and throwing a RangeError.
+  The animation now starts its timer on its first frame and bounds progress to
+  0–1. The thermodynamics equations are unchanged.
+- Added a regression that executes the actual animation loop with early,
+  backwards, midpoint, and delayed timestamps; verifies exact energy balance,
+  one completion, and replay reset for three temperature orderings.
+- Verified browser completion for normal, reversed, equal-temperature, replay,
+  cancellation/restart, and guided typical-case runs. All 18 tests pass.
+
 ## 2026-11-01
 
 - Retained the original water-mixing equations, constant specific heat, valid

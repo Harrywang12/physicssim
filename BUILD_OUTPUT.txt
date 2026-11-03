@@ -53,6 +53,9 @@ PASS P. CSV export uses computed records
 PASS Q. Boundary extremes and strict validation
   Expected: Valid minimum/maximum inputs conserve energy; blank/string/undefined rejected; invalid progress rejected
   Actual:   Valid extremes passed; 3 invalid masses and 3 invalid progress values rejected
+PASS R. Animation starts safely and reaches equilibrium
+  Expected: Earlier first-frame timestamp: 0% → 50% → 100%; balanced heat, one completion, replay starts at 0%
+  Actual:   Default, reversed, and equal-temperature runs reach 100%; exact balance; replay resets to 0%
 
-17 passed, 0 failed.
+18 passed, 0 failed.
 Static site built in dist/ (index.html + physics.js).

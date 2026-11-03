@@ -93,7 +93,7 @@ or evaporation generally lowers the final temperature.
   and integrated guided workflow. No third-party runtime assets.
 - `physics.js`: preserved calculation functions plus pure investigation-control,
   energy-direction, graph-filter, and CSV helpers. No DOM code.
-- `tests.js`: original A–L tests plus M–Q regression tests.
+- `tests.js`: original A–L tests plus M–R regression tests.
 - `TEST_REPORT.md`: executed checks, issues found and repaired, and manual checks.
 - `CHANGELOG.md`: changes and their reasons.
 - `PEER_REVIEW.md`: blank checklist for genuine learner feedback.
